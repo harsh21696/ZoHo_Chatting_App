@@ -62,12 +62,25 @@
 const nodemailer = require('nodemailer');
 require("dotenv").config();
 
+// Render's free tier blocks all outbound SMTP traffic at the network level
+// (see https://render.com/changelog/free-web-services-will-no-longer-allow-outbound-traffic-to-smtp-ports).
+// Without an explicit timeout, nodemailer's default TCP connect timeout is
+// ~2 minutes, so a blocked connection just hangs instead of failing —
+// the request "takes too much time" and the user has no idea why. These
+// timeouts make it fail in a few seconds with a clear, catchable error
+// instead, which authController.js turns into a proper 502 response.
+// This does NOT restore email delivery on Render's free tier — that needs
+// either an HTTP-based provider (Resend/SendGrid/Mailgun, all over port 443)
+// or a paid Render plan. It only makes the failure fast and legible.
 const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
-    }
+    },
+    connectionTimeout: 8000, // time to establish the TCP connection
+    greetingTimeout: 8000,   // time to receive the SMTP greeting after connecting
+    socketTimeout: 10000,    // time allowed for the socket to be idle mid-transfer
 });
 
 const sendOtpToEmail = async (email, otp) => {
