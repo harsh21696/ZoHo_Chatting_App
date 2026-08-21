@@ -186,6 +186,12 @@ Open the application at:
 http://localhost:3000
 ```
 
+## vercel link
+
+```text
+zoho-collabspace.vercel.app
+```
+
 ## Security notes
 
 - Private credentials and API keys are intentionally excluded from this repository.
