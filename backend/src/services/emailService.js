@@ -17,7 +17,7 @@ const SENDGRID_API_URL = "https://api.sendgrid.com/v3/mail/send";
 
 // Must exactly match the address verified in SendGrid's Single Sender
 // Verification, or every send is rejected with a 403.
-const FROM_ADDRESS = process.env.SENDGRID_FROM || "utsav6467@gmail.com";
+const FROM_ADDRESS = process.env.SENDGRID_FROM || "harshkashyap1221@gmail.com";
 const FROM_NAME = "ZoHo Web";
 
 const sendOtpToEmail = async (email, otp) => {
@@ -42,7 +42,7 @@ const sendOtpToEmail = async (email, otp) => {
 
         <p>If you didn't request this OTP, please ignore this email.</p>
 
-        <p style="margin-top: 20px;">Thanks & Regards, <br/> Akshit <br/>ZoHo Web Security Team</p>
+        <p style="margin-top: 20px;">Thanks & Regards, <br/> Harsh <br/>ZoHo Web Security Team</p>
 
         <hr style="margin: 30px 0;" />
 
